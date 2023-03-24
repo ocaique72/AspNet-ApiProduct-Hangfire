@@ -113,3 +113,7 @@ C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\obj\Debug\net6.0\refin
 C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\obj\Debug\net6.0\apiDesafio.pdb
 C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\obj\Debug\net6.0\apiDesafio.genruntimeconfig.cache
 C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\obj\Debug\net6.0\ref\apiDesafio.dll
+C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\Users\Caique.Araujo\code\desafio\apiDesafio\apiDesafio\bin\Debug\net6.0\Dapper.dll

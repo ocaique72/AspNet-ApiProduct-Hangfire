@@ -1,13 +1,17 @@
 ﻿using apiDesafio.Models;
 using apiDesafio.ViewModel;
+using Dapper;
 using desafio.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
 namespace apiDesafio.Controllers
 {
+
+    // CODIGO FUNCIONANDO COM ENTITY FRAMEWORK
     [ApiController]
     [Route("v1")]
     public class ProductLogController : ControllerBase
@@ -100,5 +104,24 @@ namespace apiDesafio.Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
+        //dapper
+
+        /* [HttpDelete]
+         [Route("product-logs/{id}")]
+         public async Task<ActionResult> DeleteAsync(int id)
+         {
+             using (var connection = new SqlConnection(connectionString))
+             {
+                 var productLog = await connection.QueryFirstOrDefaultAsync<ProductLogModel>("SELECT * FROM ProductLogs WHERE Id = @Id", new { Id = id });
+                 if (productLog == null)
+                 {
+                     return NotFound();
+                 }
+                 await connection.ExecuteAsync("DELETE FROM ProductLogs WHERE Id = @Id", new { Id = id });
+                 return Ok();
+             }
+         } */
+
     }
+
 }

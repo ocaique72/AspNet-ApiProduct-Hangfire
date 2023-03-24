@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "QyhiS3nifMpwsBvqi0hayCyEP4xmvYZHX31ixn0lYLWvqIwS3a1neijCySUU/nI7Lm+VE6B2IPxxeSi2Rg8JCA==",
+  "dgSpecHash": "FIYJjKUiKQztRUrAiN7vDkV8+ApI5jcrUl0TT2MdNkAbT+9wPmYSZMzt61PS6XbWJzFjyiYUAeWIJaoO3gzewQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Caique.Araujo\\code\\desafio\\apiDesafio\\apiDesafio\\apiDesafio.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Caique.Araujo\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Caique.Araujo\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\Caique.Araujo\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\Caique.Araujo\\.nuget\\packages\\fluentvalidation\\11.2.1\\fluentvalidation.11.2.1.nupkg.sha512",
+    "C:\\Users\\Caique.Araujo\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.2.2\\fluentvalidation.aspnetcore.11.2.2.nupkg.sha512",
+    "C:\\Users\\Caique.Araujo\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.2.1\\fluentvalidation.dependencyinjectionextensions.11.2.1.nupkg.sha512",
     "C:\\Users\\Caique.Araujo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Caique.Araujo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\Caique.Araujo\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

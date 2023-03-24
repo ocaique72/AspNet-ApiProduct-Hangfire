@@ -1,0 +1,44 @@
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.psess
+*.cache
+*.ilk
+*.pdb
+
+# Compiled output
+/bin/
+/obj/
+
+# NuGet Packages
+*.nupkg
+packages/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
