@@ -7,6 +7,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using System.Data.SQLite;
+using System.Data;
+
 
 namespace apiDesafio.Controllers
 {
@@ -43,7 +46,31 @@ namespace apiDesafio.Controllers
             return Ok(productLog);
         }
 
-        [HttpPost]
+         [HttpPost]
+         [Route("product-logs")]
+         public async Task<ActionResult> CreateAsync([FromBody] CreateProductLogViewModel productLog)
+         {
+             if (!ModelState.IsValid)
+             {
+                 return BadRequest();
+             }
+
+             var productLogs = new ProductLogModel
+             {
+                 Id = productLog.GetHashCode(),
+                 ProductId = productLog.ProductId,
+                 ProductJson = productLog.ProductJson,
+                 UpdatedAt = DateTime.Now
+             };
+
+             await _context.ProductLogs.AddAsync(productLogs);
+             await _context.SaveChangesAsync();
+
+             return Created($"v1/product-logs/{productLogs.Id}", productLogs);
+         }
+        
+
+       /* [HttpPost]
         [Route("product-logs")]
         public async Task<ActionResult> CreateAsync([FromBody] CreateProductLogViewModel productLog)
         {
@@ -52,19 +79,25 @@ namespace apiDesafio.Controllers
                 return BadRequest();
             }
 
-            var productLogs = new ProductLogModel
+            using (var connection = new SqlConnection("DataSource=app.db;Cache=Shared"))
             {
-                Id = productLog.GetHashCode(),
-                ProductId = productLog.ProductId,
-                ProductJson = productLog.ProductJson,
-                UpdatedAt = DateTime.Now
-            };
+                var productLogs = new ProductLogModel
+                {
+                    Id = productLog.GetHashCode(),
+                    ProductId = productLog.ProductId,
+                    ProductJson = productLog.ProductJson,
+                    UpdatedAt = DateTime.Now
+                };
 
-            await _context.ProductLogs.AddAsync(productLogs);
-            await _context.SaveChangesAsync();
+                var sql = @"INSERT INTO ProductLogs (Id, ProductId, ProductJson, UpdatedAt) 
+                    VALUES (@Id, @ProductId, @ProductJson, @UpdatedAt)";
 
-            return Created($"v1/product-logs/{productLogs.Id}", productLogs);
+                await connection.ExecuteAsync(sql, productLogs);
+
+                return Created($"v1/product-logs/{productLogs.Id}", productLogs);
+            }
         }
+       */
 
         [HttpPut]
         [Route("product-logs/{id}")]
@@ -91,7 +124,7 @@ namespace apiDesafio.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+       /* [HttpDelete]
         [Route("product-logs/{id}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
@@ -103,24 +136,26 @@ namespace apiDesafio.Controllers
             _context.ProductLogs.Remove(productLog);
             await _context.SaveChangesAsync();
             return Ok();
-        }
-        //dapper
+        } */
 
-        /* [HttpDelete]
+
+
+        //dapper
+         [HttpDelete]
          [Route("product-logs/{id}")]
          public async Task<ActionResult> DeleteAsync(int id)
          {
-             using (var connection = new SqlConnection(connectionString))
-             {
-                 var productLog = await connection.QueryFirstOrDefaultAsync<ProductLogModel>("SELECT * FROM ProductLogs WHERE Id = @Id", new { Id = id });
-                 if (productLog == null)
-                 {
-                     return NotFound();
-                 }
-                 await connection.ExecuteAsync("DELETE FROM ProductLogs WHERE Id = @Id", new { Id = id });
-                 return Ok();
-             }
-         } */
+            using (var connection = new SQLiteConnection("DataSource=app.db;Cache=Shared"))
+            {
+                var productLog = await connection.QueryFirstOrDefaultAsync<ProductLogModel>("SELECT * FROM ProductLogs WHERE Id = @Id", new { Id = id });
+                if (productLog == null)
+                {
+                    return NotFound();
+                }
+                await connection.ExecuteAsync("DELETE FROM ProductLogs WHERE Id = @Id", new { Id = id });
+                return Ok();
+            }
+        } 
 
     }
 

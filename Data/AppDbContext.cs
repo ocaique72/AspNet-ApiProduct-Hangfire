@@ -1,6 +1,6 @@
 ﻿using apiDesafio.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Data.SQLite;
 
 namespace desafio.Data
 {
@@ -21,6 +21,8 @@ namespace desafio.Data
                 );
 
     }
+
+
 }
 
 

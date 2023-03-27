@@ -36,6 +36,15 @@ namespace apiDesafio.Controllers
 
         }
 
+        [HttpGet]
+        [Route("pending-product-logs")]
+        public async Task<ActionResult> GetPendingLogsAsync(
+            [FromServices] AppDbContext context)
+        {
+            var pendingLogs = await context.Products.AsNoTracking().Where(pl => pl.HasPendingLogUpdate).ToListAsync();
+            return Ok(pendingLogs);
+        }
+
         [HttpPost("products")]
         public async Task<IActionResult> CreateAsync(
             [FromServices] AppDbContext context,
