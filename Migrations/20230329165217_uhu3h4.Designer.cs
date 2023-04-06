@@ -11,14 +11,29 @@ using desafio.Data;
 namespace apiDesafio.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230324172228_lite002")]
-    partial class lite002
+    [Migration("20230329165217_uhu3h4")]
+    partial class uhu3h4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0-preview.2.23128.3");
+
+            modelBuilder.Entity("CategoryModelProductModel", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CategoriesId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("CategoryModelProductModel");
+                });
 
             modelBuilder.Entity("apiDesafio.Models.CategoryModel", b =>
                 {
@@ -39,6 +54,23 @@ namespace apiDesafio.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("apiDesafio.Models.ProductCategory", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("ProductId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("apiDesafio.Models.ProductLogModel", b =>
@@ -68,9 +100,6 @@ namespace apiDesafio.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -91,6 +120,50 @@ namespace apiDesafio.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("CategoryModelProductModel", b =>
+                {
+                    b.HasOne("apiDesafio.Models.CategoryModel", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("apiDesafio.Models.ProductModel", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("apiDesafio.Models.ProductCategory", b =>
+                {
+                    b.HasOne("apiDesafio.Models.CategoryModel", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("apiDesafio.Models.ProductModel", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("apiDesafio.Models.CategoryModel", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
+
+            modelBuilder.Entity("apiDesafio.Models.ProductModel", b =>
+                {
+                    b.Navigation("ProductCategories");
                 });
 #pragma warning restore 612, 618
         }

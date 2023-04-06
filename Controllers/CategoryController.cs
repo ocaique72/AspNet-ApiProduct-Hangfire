@@ -4,6 +4,7 @@ using apiDesafio.ViewModel;
 using desafio.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace apiDesafio.Controllers
 {
@@ -19,10 +20,19 @@ namespace apiDesafio.Controllers
         }
 
         [HttpGet]
-        [Route("categories")]
-        public async Task<ActionResult> GetAllAsync()
+        [Route("/categories")]
+        public async Task<IActionResult> GetCategoriesWithProductIds(
+            [FromServices] AppDbContext _context)
         {
-            var categories = await _context.Categories.AsNoTracking().ToListAsync();
+            var categories = await _context.Categories
+                .Include(c => c.Products)
+                .Select(c => new {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ProductIds = c.Products.Select(p => p.Id).ToList()
+                })
+                .ToListAsync();
+
             return Ok(categories);
         }
 
@@ -38,26 +48,28 @@ namespace apiDesafio.Controllers
             return Ok(category);
         }
 
+
         [HttpPost]
         [Route("categories")]
-        public async Task<ActionResult> CreateAsync([FromBody] CreateCategoryViewModel category)
+        public async Task<IActionResult> CreateCategory(
+            [FromBody] CreateCategoryViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-            var categorys = new CategoryModel
+
+            var category = new CategoryModel
             {
-                Id = category.GetHashCode(),
-                Name = category.Name,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now
+                Name = model.Name,
+                CreatedAt = DateTime.UtcNow
+
             };
 
-            await _context.Categories.AddAsync(categorys);
+            _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            return Created($"v1/categories", category);
+            return Ok(category);
         }
 
         [HttpPut]

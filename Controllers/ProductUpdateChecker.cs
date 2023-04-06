@@ -9,7 +9,7 @@ using desafio.Data;
 
 public class ProductUpdateChecker
 {
-    public async Task StartAsync()
+    /*public async Task StartAsync()
     {
         while (true)
         {
@@ -42,6 +42,7 @@ public class ProductUpdateChecker
             await Task.Delay(TimeSpan.FromMinutes(1));
         }
     }
+    */
 
     public static async Task ProductLogUpdateJobAsync()
     {

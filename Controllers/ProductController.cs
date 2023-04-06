@@ -3,6 +3,7 @@ using apiDesafio.ViewModel;
 using desafio.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.WebRequestMethods;
 
 namespace apiDesafio.Controllers
 {
@@ -12,29 +13,56 @@ namespace apiDesafio.Controllers
     {
         [HttpGet]
         [Route("products")]
-        public async Task<IActionResult> GetAllAsync(
-            //fromServices pegando do dbContext/ database
-            [FromServices] AppDbContext context)
+       public async Task<IActionResult> GetAllProducts(
+            [FromServices] AppDbContext _context)
+{
+    var products = await _context.Products
+        .Include(p => p.Categories)
+        .ToListAsync();
 
+    var productViewModels = products.Select(p => new ProductListViewModel
+    {
+        Id = p.Id,
+        Name = p.Name,
+        Price = p.Price,
+        HasPendingLogUpdate = p.HasPendingLogUpdate,
+       // CreatedAt = p.CreatedAt,
+        CategoryIds = p.Categories.Select(c => c.Id).ToList()
+    });
+
+    return Ok(productViewModels);
+}
+
+        [HttpGet("/product{id}")]
+        public async Task<ActionResult<ProductListViewModel>> GetProduct(int id, [FromServices] AppDbContext _context)
         {
-            //AsNoTracking nao verifica status dos obj ganhando performace
-            var products = await context.Products.AsNoTracking().ToListAsync();
-            return Ok(products);
+            // Busca o produto no banco de dados
+            var product = await _context.Products.Include(p => p.ProductCategories)
+                                                  .FirstOrDefaultAsync(p => p.Id == id);
+
+            // Verifica se o produto foi encontrado
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            // Cria a lista de IDs de categoria
+            var categoryIds = product.ProductCategories.Select(pc => pc.CategoryId).ToList();
+
+            //cria viewmodel
+            var productViewModel = new ProductListViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                HasPendingLogUpdate = product.HasPendingLogUpdate,
+                CategoryIds = categoryIds
+            };
+
+            return productViewModel;
         }
-
-        [HttpGet]
-        [Route("product/{id}")]
-        public async Task<IActionResult> GetByIdAsync(
-            //fromServices pegando do dbContext/ database
-            [FromServices] AppDbContext context, [FromRoute] int id)
-
-        {
-            //AsNoTracking nao verifica status dos obj ganhando performace
-            var product = await context.Products.AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
-            return product == null ? NotFound() : Ok(product);
-
-        }
+    
 
         [HttpGet]
         [Route("pending-product-logs")]
@@ -45,41 +73,46 @@ namespace apiDesafio.Controllers
             return Ok(pendingLogs);
         }
 
-        [HttpPost("products")]
-        public async Task<IActionResult> CreateAsync(
-            [FromServices] AppDbContext context,
-            [FromBody] CreateProductViewModel product)
+        //[FromServices] AppDbContext _context
+        [HttpPost]
+        [Route("product")]
+        public async Task<IActionResult> CreateProduct(
+            [FromBody] CreateProductViewModel productViewModel,
+            [FromServices] AppDbContext _context)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
-            var products = new ProductModel
+
+            var product = new ProductModel
             {
-                Id = product.GetHashCode(),
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                CreatedAt = DateTime.Now,
-                HasPendingLogUpdate = false,
-                CategoryId = product.CategoryId,
+                Name = productViewModel.Name,
+                Description = productViewModel.Description,
+                Price = productViewModel.Price,
+                Categories = new List<CategoryModel>(),
+                CreatedAt = DateTime.UtcNow,
+                HasPendingLogUpdate = false
             };
 
-            try
+            foreach (var categoryId in productViewModel.CategoryIds)
             {
-                //salva na memoria
-                await context.Products.AddAsync(products);
-                //salva no baco
-                await context.SaveChangesAsync();
-                //precisa passar parametro para nao dar erro
-                return Created($"v1/products/{products.Id}", product);
+                var category = await _context.Categories.FindAsync(categoryId);
+                if (category == null)
+                {
+                    return BadRequest($"Categoria com o ID {categoryId} não existe.");
+                }
+
+                product.Categories.Add(category);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return BadRequest();
-            }
+
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
+
+
 
         [HttpPut]
         [Route("products/{id}")]
@@ -107,7 +140,7 @@ namespace apiDesafio.Controllers
                 existingProduct.Name = product.Name;
                 existingProduct.Description = product.Description;
                 existingProduct.Price = product.Price;
-                existingProduct.CategoryId = product.CategoryId;
+               // existingProduct.Categories = product.Categories;
                 existingProduct.CreatedAt = existingProduct.CreatedAt;
                 existingProduct.HasPendingLogUpdate = true;
 

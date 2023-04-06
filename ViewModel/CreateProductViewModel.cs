@@ -1,13 +1,16 @@
-﻿using FluentValidation;
+﻿using apiDesafio.Models;
+using FluentValidation;
+using Newtonsoft.Json;
 
 namespace apiDesafio.ViewModel
 {
     public class CreateProductViewModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public int CategoryId { get; set; }
+       
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Price { get; set; }
+            public ICollection<int> CategoryIds { get; set; } = new List<int>();
     }
 
     public class CreateProductViewModelValidator : AbstractValidator<CreateProductViewModel>
@@ -25,9 +28,8 @@ namespace apiDesafio.ViewModel
                 .NotEmpty().WithMessage("O campo Price não pode estar vazio.")
                 .GreaterThan(0).WithMessage("O campo Price deve ser maior que zero.");
 
-            RuleFor(x => x.CategoryId)
-                .NotEmpty().WithMessage("O campo CategoryId não pode estar vazio.")
-                .Must(x => int.TryParse(x.ToString(), out _)).WithMessage("O campo ProductId deve conter somente números.");
+            RuleFor(x => x.CategoryIds)
+                .NotEmpty().WithMessage("O campo Categories não pode estar vazio.");
         }
     }
 }
