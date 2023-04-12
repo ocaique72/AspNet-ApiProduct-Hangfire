@@ -14,5 +14,12 @@ namespace apiDesafio.Models
         [JsonIgnore]
         public ICollection<ProductModel> Products { get; set; }
         public ICollection<ProductCategory> ProductCategories { get; set; }
+        public List<int> ProductIds
+        {
+            get
+            {
+                return ProductCategories?.Select(pc => pc.ProductId).ToList();
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace Blog.Attributes
             ActionExecutingContext context,
             ActionExecutionDelegate next)
         {
-            if (!context.HttpContext.Request.Query.TryGetValue(Configuration.ApiKeyName, out var extractedApiKey))
+            if (!context.ActionArguments.TryGetValue("api_key", out var extractedApiKey))
             {
                 context.Result = new ContentResult()
                 {

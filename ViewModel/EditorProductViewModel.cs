@@ -1,21 +1,21 @@
 ﻿using apiDesafio.Models;
 using FluentValidation;
+using Newtonsoft.Json;
 
 namespace apiDesafio.ViewModel
 {
-    public class UpdateProductViewModel
+    public class EditorProductViewModel
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public List<int> Categories { get; set; }
-        //public List<int> Categories { get; set; }
-
+       
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public decimal Price { get; set; }
+            public ICollection<int> CategoryIds { get; set; } = new List<int>();
     }
 
-    public class UpdateProductViewModelValidator : AbstractValidator<UpdateProductViewModel>
+    public class EditorProductViewModelValidator : AbstractValidator<EditorProductViewModel>
     {
-        public UpdateProductViewModelValidator()
+        public EditorProductViewModelValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("O campo Name não pode estar vazio.")
@@ -28,8 +28,8 @@ namespace apiDesafio.ViewModel
                 .NotEmpty().WithMessage("O campo Price não pode estar vazio.")
                 .GreaterThan(0).WithMessage("O campo Price deve ser maior que zero.");
 
-            RuleFor(x => x.Categories)
-                .NotEmpty().WithMessage("A lista de CategoryIds não pode estar vazia.");
+            RuleFor(x => x.CategoryIds)
+                .NotEmpty().WithMessage("O campo Categories não pode estar vazio.");
         }
     }
 }

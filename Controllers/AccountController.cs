@@ -1,6 +1,7 @@
 ﻿using apiDesafio.Models;
 using apiDesafio.Services;
 using apiDesafio.ViewModel;
+using Blog.Attributes;
 using desafio.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,11 +25,12 @@ namespace apiDesafio.Controllers
         }
 
         //injcao de dependecia subtitui o fromService
-
+        [ApiKey]
         [HttpPost("v1/accounts")]
         public async Task<IActionResult> PostRegisterAsync(
             [FromBody] RegisterViewModel model,
-            [FromServices] AppDbContext context)
+            [FromServices] AppDbContext context,
+            [FromQuery] string api_key)
         {
             if (!ModelState.IsValid)
             {
@@ -58,13 +60,14 @@ namespace apiDesafio.Controllers
             }
 
 
-      }        
-
+      }
+        [ApiKey]
         [HttpPost("v1/accounts/login")]
         public async Task<IActionResult> Login(
             [FromBody] LoginViewModel model,
             [FromServices] TokenServices tokenServices,
-            [FromServices] AppDbContext context)
+            [FromServices] AppDbContext context,
+            [FromQuery] string api_key)
         {
             if(!ModelState.IsValid)
             {

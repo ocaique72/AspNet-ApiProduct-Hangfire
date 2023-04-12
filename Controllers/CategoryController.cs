@@ -1,6 +1,7 @@
 ﻿
 using apiDesafio.Models;
 using apiDesafio.ViewModel;
+using Blog.Attributes;
 using desafio.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,19 +41,32 @@ namespace apiDesafio.Controllers
         [Route("categories/{id}")]
         public async Task<ActionResult> GetByIdAsync(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories
+                .Include(c => c.ProductCategories)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
             if (category == null)
             {
                 return NotFound();
             }
-            return Ok(category);
+
+            var categoryDto = new
+            {
+                id = category.Id,
+                name = category.Name,
+                createdAt = category.CreatedAt,
+                updatedAt = category.UpdatedAt,
+                productIds = category.ProductCategories.Select(pc => pc.ProductId).ToList()
+            };
+
+            return Ok(categoryDto);
         }
 
 
         [HttpPost]
         [Route("categories")]
         public async Task<IActionResult> CreateCategory(
-            [FromBody] CreateCategoryViewModel model)
+            [FromBody] EditorCategoryViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -74,7 +88,9 @@ namespace apiDesafio.Controllers
 
         [HttpPut]
         [Route("categories/{id}")]
-        public async Task<ActionResult> UpdateAsync(int id, [FromBody] UpdateCategoryViewModel category)
+        public async Task<ActionResult> UpdateAsync(
+            int id, 
+            [FromBody] EditorCategoryViewModel category)
         {
             if (!ModelState.IsValid)
             {
@@ -106,8 +122,9 @@ namespace apiDesafio.Controllers
         }
 
         [HttpDelete]
+        [ApiKey]
         [Route("categories/{id}")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> DeleteAsync(int id, [FromQuery] string api_key)
         {
             var category = await _context.Categories.FindAsync(id);
             if (category == null)

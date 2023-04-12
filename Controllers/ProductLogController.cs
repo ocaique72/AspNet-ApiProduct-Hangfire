@@ -48,7 +48,7 @@ namespace apiDesafio.Controllers
 
          [HttpPost]
          [Route("product-logs")]
-         public async Task<ActionResult> CreateAsync([FromBody] CreateProductLogViewModel productLog)
+         public async Task<ActionResult> CreateAsync([FromBody] EditorProductLogViewModel productLog)
          {
              if (!ModelState.IsValid)
              {
@@ -101,7 +101,7 @@ namespace apiDesafio.Controllers
 
         [HttpPut]
         [Route("product-logs/{id}")]
-        public async Task<ActionResult> UpdateAsync(int id, [FromBody] UpdateProductLogViewModel productLog)
+        public async Task<ActionResult> UpdateAsync(int id, [FromBody] EditorProductLogViewModel productLog)
         {
             if (!ModelState.IsValid)
             {

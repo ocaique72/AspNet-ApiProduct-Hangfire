@@ -2,15 +2,15 @@
 
 namespace apiDesafio.ViewModel
 {
-    public class UpdateProductLogViewModel
+    public class EditorProductLogViewModel
     {
         public int ProductId { get; set; }
         public string ProductJson { get; set; }
     }
 
-    public class UpdateProductLogViewModelValidator : AbstractValidator<UpdateProductLogViewModel>
+    public class CreateProductLogViewModelValidator : AbstractValidator<EditorProductLogViewModel>
     {
-        public UpdateProductLogViewModelValidator()
+        public CreateProductLogViewModelValidator()
         {
             RuleFor(x => x.ProductId)
                 .NotEmpty().WithMessage("O campo ProductId é obrigatório.")

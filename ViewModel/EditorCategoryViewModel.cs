@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace apiDesafio.ViewModel
 {
-    public class CreateCategoryViewModel
+    public class EditorCategoryViewModel
     {     
         public string Name { get; set; }
     }
 
-    public class CreateCategoryViewModelValidator : AbstractValidator<CreateCategoryViewModel>
+    public class CreateCategoryViewModelValidator : AbstractValidator<EditorCategoryViewModel>
     {
         public CreateCategoryViewModelValidator()
         {

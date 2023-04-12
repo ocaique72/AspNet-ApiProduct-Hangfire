@@ -9,10 +9,9 @@ namespace apiDesafio.Controllers
     {
         [HttpGet("/")]
         [ApiKey]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] string api_key)
         {
             return Ok();
         }
-
     }
 }
