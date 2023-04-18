@@ -58,16 +58,13 @@ namespace apiDesafio.Controllers
             catch(Exception ex) {
                 return BadRequest(ex);
             }
-
-
-      }
-        [ApiKey]
+            
+        }
         [HttpPost("v1/accounts/login")]
         public async Task<IActionResult> Login(
             [FromBody] LoginViewModel model,
             [FromServices] TokenServices tokenServices,
-            [FromServices] AppDbContext context,
-            [FromQuery] string api_key)
+            [FromServices] AppDbContext context)
         {
             if(!ModelState.IsValid)
             {

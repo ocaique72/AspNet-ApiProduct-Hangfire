@@ -9,7 +9,7 @@ using System;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Data;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace apiDesafio.Controllers
 {
@@ -17,6 +17,7 @@ namespace apiDesafio.Controllers
     // CODIGO FUNCIONANDO COM ENTITY FRAMEWORK
     [ApiController]
     [Route("v1")]
+    [Authorize]
     public class ProductLogController : ControllerBase
     {
         private readonly AppDbContext _context;

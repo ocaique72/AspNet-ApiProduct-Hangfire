@@ -27,3 +27,7 @@ namespace apiDesafio.Services
         }
     }
 }
+
+// email: caiqueeee@teste.com
+// senha: %KLOQd{0@4&9i{1{$e5Y
+// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImNhaXF1ZWVlZUB0ZXN0ZS5jb20iLCJuYmYiOjE2ODE4MTg4NDgsImV4cCI6MTY4MTg0NzY0OCwiaWF0IjoxNjgxODE4ODQ4fQ._Oozmp6oxS0AritUcrw2g0OopiXWBvqqrxy9Amq5zDU

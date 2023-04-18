@@ -8,10 +8,9 @@ namespace apiDesafio.Controllers
     public class HomeController : ControllerBase
     {
         [HttpGet("/")]
-        [ApiKey]
-        public IActionResult Get([FromQuery] string api_key)
+        public IActionResult Get()
         {
-            return Ok();
+            return Ok("Api online!");
         }
     }
 }

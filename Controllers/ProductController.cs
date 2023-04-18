@@ -1,6 +1,7 @@
 ﻿using apiDesafio.Models;
 using apiDesafio.ViewModel;
 using desafio.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static Azure.Core.HttpHeader;
@@ -10,6 +11,7 @@ namespace apiDesafio.Controllers
 {
     [ApiController]
     [Route("v1")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         [HttpGet]

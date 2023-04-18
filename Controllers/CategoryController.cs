@@ -3,6 +3,7 @@ using apiDesafio.Models;
 using apiDesafio.ViewModel;
 using Blog.Attributes;
 using desafio.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
@@ -11,6 +12,7 @@ namespace apiDesafio.Controllers
 {
     [ApiController]
     [Route("v1")]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -19,6 +21,7 @@ namespace apiDesafio.Controllers
         {
             _context = context;
         }
+
 
         [HttpGet]
         [Route("/categories")]
@@ -122,9 +125,8 @@ namespace apiDesafio.Controllers
         }
 
         [HttpDelete]
-        [ApiKey]
         [Route("categories/{id}")]
-        public async Task<ActionResult> DeleteAsync(int id, [FromQuery] string api_key)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             var category = await _context.Categories.FindAsync(id);
             if (category == null)
