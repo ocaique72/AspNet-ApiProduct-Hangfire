@@ -284,4 +284,69 @@ Retorna todos os produtos com atualizações de log pendentes.
             }
         ]
         ```
+## Criar um Produto
+
+Cria um novo produto com as informações fornecidas.
+
+### Requisição
+
+- Método HTTP: POST
+- Endpoint: `/product`
+- Corpo da Requisição:
+  - `EditorProductViewModel` (JSON)
+
+Exemplo de Corpo da Requisição:
+```json
+{
+  "Name": "Nome do Produto",
+  "Description": "Descrição do Produto",
+  "Price": 19.99,
+  "CategoryIds": [1, 2, 3]
+}
+
+
+## Atualizar um Produto
+
+- Método HTTP: PUT
+- Endpoint: `/products/{id}`
+- Corpo da Requisição:
+  - `EditorProductViewModel` (JSON)
+
+Exemplo de Corpo da Requisição:
+```json
+{
+  "Name": "Nome do Produto Atualizado",
+  "Description": "Descrição do Produto Atualizada",
+  "Price": 29.99
+}
+
+# Excluir um Produto
+
+Exclui um produto existente.
+
+## Requisição
+
+- Método HTTP: DELETE
+- Endpoint: `/product/{id}`
+
+### Parâmetros de Rota
+
+- `id` (integer): O ID do produto a ser excluído.
+
+### Resposta
+
+- Código de Status HTTP: 204 No Content
+  - Corpo da Resposta: Vazio
+
+## Respostas de Erro
+
+Se ocorrerem erros durante a requisição, a API responderá com o código de status HTTP apropriado.
+
+- Código de Status HTTP: 404 Not Found
+  - Corpo da Resposta: Vazio
+
+- Código de Status HTTP: 400 Bad Request
+  - Corpo da Resposta: Vazio
+
+Exemplo de Requisição:
 
