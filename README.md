@@ -162,3 +162,126 @@ Exclui uma categoria com base no ID fornecido.
 - **Resposta de Sucesso:**
     - **Código:** 200 OK
 
+# Product Controller
+
+## Endpoint `/v1/products`
+
+### `GET`
+
+Retorna todos os produtos com suas categorias associadas.
+
+- **URL:** `/v1/products`
+- **Método:** `GET`
+- **Resposta de Sucesso:**
+    - **Código:** 200 OK
+    - **Corpo da Resposta:**
+        ```json
+        [
+            {
+                "Id": 1,
+                "Name": "Nome do Produto",
+                "Description": "Descrição do Produto",
+                "Price": 10.99,
+                "HasPendingLogUpdate": true,
+                "Categories": [
+                    {
+                        "Id": 1,
+                        "Name": "Categoria 1"
+                    },
+                    {
+                        "Id": 2,
+                        "Name": "Categoria 2"
+                    }
+                ]
+            },
+            {
+                "Id": 2,
+                "Name": "Outro Produto",
+                "Description": "Descrição do Produto",
+                "Price": 19.99,
+                "HasPendingLogUpdate": false,
+                "Categories": [
+                    {
+                        "Id": 3,
+                        "Name": "Categoria 3"
+                    }
+                ]
+            }
+        ]
+        ```
+
+### `GET /products/{id}`
+
+Retorna um produto específico com base no ID fornecido.
+
+- **URL:** `/v1/products/{id}`
+- **Método:** `GET`
+- **Parâmetros da URL:**
+    - **id** (obrigatório): ID do produto
+- **Resposta de Sucesso:**
+    - **Código:** 200 OK
+    - **Corpo da Resposta:**
+        ```json
+        {
+            "Id": 1,
+            "Name": "Nome do Produto",
+            "Description": "Descrição do Produto",
+            "Price": 10.99,
+            "HasPendingLogUpdate": true,
+            "Categories": [
+                {
+                    "Id": 1,
+                    "Name": "Categoria 1"
+                },
+                {
+                    "Id": 2,
+                    "Name": "Categoria 2"
+                }
+            ]
+        }
+        ```
+
+### `GET /pending-product-logs`
+
+Retorna todos os produtos com atualizações de log pendentes.
+
+- **URL:** `/v1/pending-product-logs`
+- **Método:** `GET`
+- **Resposta de Sucesso:**
+    - **Código:** 200 OK
+    - **Corpo da Resposta:**
+        ```json
+        [
+            {
+                "Id": 1,
+                "Name": "Nome do Produto",
+                "Description": "Descrição do Produto",
+                "Price": 10.99,
+                "HasPendingLogUpdate": true,
+                "Categories": [
+                    {
+                        "Id": 1,
+                        "Name": "Categoria 1"
+                    },
+                    {
+                        "Id": 2,
+                        "Name": "Categoria 2"
+                    }
+                ]
+            },
+            {
+                "Id": 2,
+                "Name": "Outro Produto",
+                "Description": "Descrição do Produto",
+                "Price": 19.99,
+                "HasPendingLogUpdate": true,
+                "Categories": [
+                    {
+                        "Id": 3,
+                        "Name": "Categoria 3"
+                    }
+                ]
+            }
+        ]
+        ```
+
