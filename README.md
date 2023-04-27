@@ -18,8 +18,6 @@ Retorna uma resposta com o status HTTP 200 OK e o corpo da resposta contendo a m
 
 Registra um novo usuário para utilizar a API
 
-- **URL:** `/v1/accounts`
-- **Método:** `POST`
 - **Corpo da Requisição:**
     ```json
     {
@@ -43,8 +41,6 @@ Registra um novo usuário para utilizar a API
 
 Realiza o login do usuário e gera seu token
 
-- **URL:** `/v1/accounts/login`
-- **Método:** `POST`
 - **Corpo da Requisição:**
     ```json
     {
@@ -70,8 +66,6 @@ Realiza o login do usuário e gera seu token
 
 Retorna todas as categorias com os IDs dos produtos associados.
 
-- **URL:** `/v1/categories`
-- **Método:** `GET`
 - **Resposta de Sucesso:**
     - **Código:** 200 OK
     - **Corpo da Resposta:**
@@ -94,8 +88,6 @@ Retorna todas as categorias com os IDs dos produtos associados.
 
 Retorna uma categoria específica com base no ID fornecido.
 
-- **URL:** `/v1/categories/{id}`
-- **Método:** `GET`
 - **Parâmetros da URL:**
     - **id** (obrigatório): ID da categoria
 - **Resposta de Sucesso:**
@@ -115,8 +107,6 @@ Retorna uma categoria específica com base no ID fornecido.
 
 Cria uma nova categoria.
 
-- **URL:** `/v1/categories`
-- **Método:** `POST`
 - **Corpo da Requisição:**
     ```json
     {
@@ -138,8 +128,6 @@ Cria uma nova categoria.
 
 Atualiza uma categoria existente com base no ID fornecido.
 
-- **URL:** `/v1/categories/{id}`
-- **Método:** `PUT`
 - **Parâmetros da URL:**
     - **id** (obrigatório): ID da categoria
 - **Corpo da Requisição:**
@@ -155,8 +143,6 @@ Atualiza uma categoria existente com base no ID fornecido.
 
 Exclui uma categoria com base no ID fornecido.
 
-- **URL:** `/v1/categories/{id}`
-- **Método:** `DELETE`
 - **Parâmetros da URL:**
     - **id** (obrigatório): ID da categoria
 - **Resposta de Sucesso:**
@@ -170,8 +156,6 @@ Exclui uma categoria com base no ID fornecido.
 
 Retorna todos os produtos com suas categorias associadas.
 
-- **URL:** `/v1/products`
-- **Método:** `GET`
 - **Resposta de Sucesso:**
     - **Código:** 200 OK
     - **Corpo da Resposta:**
@@ -214,8 +198,6 @@ Retorna todos os produtos com suas categorias associadas.
 
 Retorna um produto específico com base no ID fornecido.
 
-- **URL:** `/v1/products/{id}`
-- **Método:** `GET`
 - **Parâmetros da URL:**
     - **id** (obrigatório): ID do produto
 - **Resposta de Sucesso:**
@@ -244,9 +226,6 @@ Retorna um produto específico com base no ID fornecido.
 ### `GET /pending-product-logs`
 
 Retorna todos os produtos com atualizações de log pendentes.
-
-- **URL:** `/v1/pending-product-logs`
-- **Método:** `GET`
 - **Resposta de Sucesso:**
     - **Código:** 200 OK
     - **Corpo da Resposta:**
