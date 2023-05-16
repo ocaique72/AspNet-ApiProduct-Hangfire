@@ -3,6 +3,7 @@
 ## Descrição
 
 O endpoint raiz da API Desafio retorna uma mensagem indicando que a API está online e disponível para uso.
+API_KEY: kiq123456
 
 ## Endpoint
 
