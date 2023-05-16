@@ -1,9 +1,11 @@
 # API Desafio
 
+### Use a API Key para gerar uma conta
+#### API_KEY: kiq123456 
+
 ## Descrição
 
-O endpoint raiz da API Desafio retorna uma mensagem indicando que a API está online e disponível para uso.
-API_KEY: kiq123456
+O endpoint raiz da API Desafio ("/") retorna uma mensagem indicando que a API está online e disponível para uso, nao e nescessario utilizar uma conta para verificar.
 
 ## Endpoint
 
