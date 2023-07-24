@@ -22,7 +22,6 @@ namespace apiDesafio.Controllers
             _context = context;
         }
 
-
         [HttpGet]
         [Route("/categories")]
         public async Task<IActionResult> GetCategoriesWithProductIds(

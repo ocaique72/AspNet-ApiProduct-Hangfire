@@ -14,11 +14,7 @@ namespace apiDesafio.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-
-        //injecao dependencia pt1
         private readonly TokenServices _tokenService;
-
-        //injecao dependencia pt2
         public AccountController(TokenServices tokenService)
         {
             _tokenService = tokenService;
@@ -93,12 +89,5 @@ namespace apiDesafio.Controllers
                 return StatusCode(500, new ResultViewModel<string>("Falha no servidor"));
             }
         }
-
-        //[HttpGet("v1/user")]
-        //public IActionResult GetUser() => Ok(User.Identity.Name);
-
-        //[Authorize(Roles = "admin")]
-        //[HttpGet("v1/admin")]
-        //public IActionResult GetAdmin() => Ok(User.Identity.Name);
     }
 }

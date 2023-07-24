@@ -37,12 +37,8 @@ namespace desafio.Data
                // "Server=ADX-924\\DBAPIDESAFIO;Database=certobanco;User Id=sa;Password=Senha123!;TrustServerCertificate=True;"
                 "DataSource=app.db;Cache=Shared"
                 );
-
     }
-
-
 }
-
 
 //DataSource=app.db;Cache=Shared
 //Server=nomeDoServidor\NomeDaInstancia;Database=nomeDoBancoDeDados;User Id=nomeDoUsuario;Password=senhaDoUsuario;
